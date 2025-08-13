@@ -16,6 +16,20 @@
     gtag('config', 'G-G7LQN2NW95');
   </script>
 
+  <script>
+    function copy_to_clipboard() {
+      /* Get the text field */
+      var copyText = document.getElementById("citeTextarea");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+    }
+  </script>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -38,14 +52,810 @@
 <body>
   <div class="container">
     <section id="abstract">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-3">
-          <img class="img-fluid" src="img/ecc-fail-logo-orange.png" id="logo" alt="ECC.fail Logo" />
+      <div class="row justify-content-center">
+        <div class="col-11">
+          <div class="card">
+            <div class="card-body">
+              <div class="container">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-3">
+                    <img class="img-fluid" src="img/ecc-fail-logo-orange.png" id="logo" alt="ECC.fail Logo" />
+                  </div>
+                  <div class="col-auto">
+                    <h1 class="text-left">ECC.fail:</h1>
+                    <h2 class="text-left">Mounting Rowhammer Attacks on<br> DDR4 Servers with ECC Memory</h2>
+                  </div>
+                </div>
+              </div>
+
+              <p class="card-text" style="margin-top: 2rem;">
+              <p>
+                We present ECC.fail, the first end-to-end Rowhammer attack effective against DDR4 server machines with
+                ECC
+                memory.
+              </p>
+              <p>
+                More specifically, we show how error correction mechanisms used by server machines to prevent memory
+                errors are not sufficient for mitigating Rowhammer,
+                allowing attackers to induce bit flips in the machine's memory without causing crashes. We then show how
+                to use these bit flips to breach common secuirty mechanisms such as RSA signatures.
+              </p>
+              <p>
+                To build ECC.fail, we first analyze the in-DRAM Rowhammer protection (e.g., Target Row Refresh -- TRR)
+                on server memory modules using an FGPA and observe their behavour in the presense of Rowhammer.
+                We then use a logic analyzer to reverse engineer Intel’s implementation of memory Error Correction Codes
+                (ECC). Combining both, we are able to craft effective hammering patterns on Intel platforms, bypassing
+                all Rowhammer protections and without inducing crashes.
+                Finally, we demonstrate the effectiveness of our attack by using Rowhammer to breach common security
+                mechanisms such as RSA signatures.
+              </p>
+            </div>
+
+            <div class="card-footer text-center w-100">
+              <a href="files/ECC.fail.pdf" class="btn btn-primary mr-2"><i class="fa fa-file"></i> Read
+                the Paper</a>
+
+              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#cite-slap"><i
+                  class="fa fa-quote-right"></i> Cite</a>
+            </div>
+
+            <div class="modal fade" id="cite-slap" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cite SLAP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <textarea class="form-control rounded-0" id="citeTextarea" rows="8" readonly>
+@inproceedings{ecc.fail,
+    title     = {ECC.fail: Mounting Rowhammer Attacks on DDR4 Servers with ECC Memory},
+    booktitle = {34th USENIX Security Symposium (USENIX Security 25)},
+    author    = {Nureddin Kamadan and Walter Wang and Stephan van Schaik and Christina Garman and Daniel Genkin and Yuval Yarom},
+    url       = {https://www.usenix.org/conference/usenixsecurity25/presentation/kamadan},
+    publisher = {USENIX Association},
+    year      = {2025},
+}</textarea>
+                  </div>
+
+                  <div class="modal-footer">
+                    <a href="javascript:copy_to_clipboard()" class="btn btn-primary mr-auto"><i class="fa fa-clipboard"
+                        aria-hidden="true"></i> Copy to clipboard</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
     </section>
   </div>
+
+  <div class="container">
+    <section id="demos">
+      <h4 style="padding-top: 20px;">Demos</h4>
+
+      <h5 class="gray">Capturing DRAM Bus Traffic Using a Logic Analyzer</h5>
+      <p>We use a logic analyzer to capture DRAM bus traffic in order to reverse engineer Intel's implementation of
+        memory error correction codes.
+        Below on the left is a video demonstration of capturing DRAM activate/read/write commands and data/checkbits
+        transactions.
+        The captured data is in both listing format and waveform format.
+        Below on the right are pictures of different parts in our logic analyzer setup and a close look at the DDR4
+        DIMM Interposer we use.
+      </p>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-7">
+          <div class="embed-responsive embed-responsive-16by9">
+            <video class="embed-responsive-item" src="video/la-demo.webm" controls muted
+              style="max-width: 100%;"></video>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="row justify-content-center align-items-center">
+            <div class="col">
+              <h5 class="gray">Logic Analyzer Setup</h5>
+              <div class="row justify-content-center">
+                <image src="img/la-labeled.jpg" controls muted style="max-width: 100%;"></image>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center align-items-center">
+            <div class="col">
+              <h5 class="gray">DDR4 DIMM Interposer</h5>
+              <div class="row justify-content-center">
+                <image src="img/interposer.jpg" controls muted style="max-width: 100%;"></image>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="gray">Obtaining Rowhammer Bit Flips on Servers</h5>
+      <p>
+        We present the first end-to-end Rowhammer attack effective against DDR4 server machines with ECC memory.
+        The video below demonstrates getting Rowhammer bit flips on a DDR4 server with default configuration.
+      </p>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-10">
+          <div class="embed-responsive embed-responsive-16by9">
+            <video class="embed-responsive-item" src="video/hammer-demo.webm" controls muted
+              style="max-width: 100%;"></video>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="people">
+      <h4 style="padding-top: 20px;">The People Behind
+        <span style="color: #014366;">ECC.fail</span>
+      </h4>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <ul>
+              <li>
+                <a href="https://www.linkedin.com/in/nureddin-kamadan">Nureddin Kamadan</a>
+                <span class="badge badge-gatech">
+                  <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://walwan.uphd.me">Walter Wang</a>
+                <span class="badge badge-gatech">
+                  <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://codentium.com/about">Stephan van Schaik</a>
+                <span class="badge badge-umich">
+                  <a class="univ" href="https://www.umich.edu/">University of Michigan</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://www.cs.purdue.edu/homes/clg">Christina Garman</a>
+                <span class="badge badge-purdue">
+                  <a class="univ" href="https://www.purdue.edu/">Purdue University</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://faculty.cc.gatech.edu/~genkin">Daniel Genkin</a>
+                <span class="badge badge-gatech">
+                  <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://yuval.yarom.org">Yuval Yarom</a>
+                <span class="badge badge-rub">
+                  <a class="univ" href="https://www.ruhr-uni-bochum.de/">Ruhr University Bochum</a>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h2 style="text-align: center;"><b><a class="fail"
+                  href="https://architecture.fail/">architecture.fail</a></b></h2>
+            <p style="text-align: center;">Check out our lab website!</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p style="text-align: center;"><b>Contact us at <a
+                  href="mailto:eccfail@googlegroups.com">eccfail@googlegroups.com</a></b></p>
+            <br>
+            <div class="row justify-content-center align-items-center" style="margin-top: -20px; margin-bottom: -20px;">
+              <div class="col-lg-5" style="text-align: center;">
+                <img class="img-fluid" src="img/gatech.png" alt="Georgia Institute of Technology"
+                  style="max-height: 100px;" />
+              </div>
+              <div class="col-lg-2" style="text-align: center;">
+                <img class="img-fluid" src="img/umich.png" alt="University of Michigan" style="max-height: 100px;" />
+              </div>
+              <div class="col-lg-2" style="text-align: center;">
+                <img class="img-fluid" src="img/purdue.png" alt="Purdue University" style="max-height: 100px;" />
+              </div>
+              <div class="col-lg-2" style="text-align: center;">
+                <img class="img-fluid" src="img/rub.svg" alt="Ruhr University Bochum" style="max-height: 100px;" />
+              </div>
+              <div class="col-lg-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="qa">
+      <h4 style="padding-top: 20px;">Frequently Asked <span style="color: #014366;">Questions</span></h4>
+
+      <h5 class="gray">ECC.fail Basics</h5>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basic-question-1">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basic-answer-1"
+                aria-expanded="true" aria-controls="basic-answer-1">
+                What is DDR memory? Where can I find it in my computer?
+              </button>
+            </h6>
+          </div>
+          <div id="basic-answer-1" class="collapse" aria-labelledby="basic-question-1">
+            <div class="card-body">
+              DDR memory is a type of memory widely used in consumer computers, workstations, servers, and other
+              electronic devices.
+              It is usually controlled by processors, or CPUs, to temporarily store data for later retrieval.
+              DDR memory is essential for computers and servers to run.
+              Below is an example picture of DDR4 memory used in servers:
+              <div class="row justify-content-center" style="padding-top:20px; padding-bottom: 20px;">
+                <image src="img/rdimm.jpg" controls muted style="max-width: 60%;"></image>
+              </div>
+              The picture below is an example of a server motherboard, there are several memory slots
+              close to the processor where memory is installed.
+              <div class="row justify-content-center" style="padding-top:20px;">
+                <image src="img/server-mobo-with-cpu-dimm-slot-marked.jpg" controls muted style="max-width: 80%;">
+                </image>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basic-question-2">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basic-answer-2"
+                aria-expanded="true" aria-controls="basic-answer-2">
+                What are Rowhammer attacks?
+              </button>
+            </h6>
+          </div>
+          <div id="basic-answer-2" class="collapse" aria-labelledby="basic-question-2">
+            <div class="card-body">
+              In 2014, <a href="https://doi.org/10.1109/ISCA.2014.6853210">researchers</a>
+              first documented a reliability issue in DDR3 memory called "Rowhammer",
+              where fast accessing to a particular memory location, a process named "hammering",
+              would cause data corruption, or bit flips (0 changed to 1, or 1 to 0), on nearby memory locations.
+              If Rowhammer bit flips are exploited maliciously, it can lead to security breaches including
+              gaining root privilege, unauthorized reads or writes to memory, and breaking cryptographic primitives,
+              in both native and browser environments.
+              <br>
+              Realizing the danger, DRAM vendors have introduced in-DRAM protection against Rowhammer attacks in newer
+              DDR4 memory.
+              However, researchers have proven that these mitigations can also be bypassed on personal computers used
+              by end users. Our work finishes the puzzle, showing
+              that server machines using DDR4 memory are also vulnerable to Rowhammer, despite using additional
+              protections built by CPU and memory vendors.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basic-question-3">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basic-answer-3"
+                aria-expanded="true" aria-controls="basic-answer-3">
+                What is ECC.fail?
+              </button>
+            </h6>
+          </div>
+          <div id="basic-answer-3" class="collapse" aria-labelledby="basic-question-3">
+            <div class="card-body">
+              ECC.fail is the first Rowhammer attack on DDR4 servers. Unlike their PC counterparts, servers have extra
+              protections against memory data corruptions (e.g., Rowhammer or cosmic ray bit flips), in the form of
+              error correcting codes.
+              These can detect bit flips in memory, and even potentially correct them.
+              ECC.fail bypasses these protections by carefully inducing Rowhammer bit flips at certain memory
+              locations,
+              based on our reverse-engineering of the ECC used in Intel servers. Thus, our work enables Rowhammer
+              attacks on DDR4 servers for the first time,
+              demonstrating how attackers can use Rowhammer-induced bitflips to break common security mechanisms such
+              as RSA signatures.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basics-question-4">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basics-answer-4"
+                aria-expanded="true" aria-controls="basics-answer-4">
+                How fast is the attack?
+              </button>
+            </h6>
+          </div>
+          <div id="basics-answer-4" class="collapse" aria-labelledby="basics-question-4">
+            <div class="card-body">
+              In our setup, it takes 2.5 hours on average to get Rowhammer bit flips and about 10 hours on average to
+              launch the RSA public key attack.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basics-question-5">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basics-answer-5"
+                aria-expanded="true" aria-controls="basics-answer-5">
+                Do you need physical access for launching the ECC.fail attack?
+              </button>
+            </h6>
+          </div>
+          <div id="basics-answer-5" class="collapse" aria-labelledby="basics-question-5">
+            <div class="card-body">
+              No. ECC.fail (like all Rowhammer attacks) can be exploited purely from software, without the need for
+              physical access. While we did use physical access to our own servers during the development of ECC.fail,
+              such access is not required for launching our attack.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basics-question-6">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basics-answer-6"
+                aria-expanded="true" aria-controls="basics-answer-6">
+                What about other server processor vendors?
+              </button>
+            </h6>
+          </div>
+          <div id="basics-answer-6" class="collapse" aria-labelledby="basics-question-6">
+            <div class="card-body">
+              Currently, our work only focuses on Intel server processors. Mounting Rowhammer attacks on AMD and ARM
+              servers is ongoing work.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basics-question-7">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basics-answer-7"
+                aria-expanded="true" aria-controls="basics-answer-7">
+                What about other server memory vendors?
+              </button>
+            </h6>
+          </div>
+          <div id="basics-answer-7" class="collapse" aria-labelledby="basics-question-7">
+            <div class="card-body">
+              Likewise, our work focuses on SK Hynix memory modules. We leave testing Rowhammer susceptibility of
+              other vendors' ECC memory as future work.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basics-question-8">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basics-answer-8"
+                aria-expanded="true" aria-controls="basics-answer-8">
+                Are any malicious actors abusing Rowhammer on servers in the wild?
+              </button>
+            </h6>
+          </div>
+          <div id="basics-answer-8" class="collapse" aria-labelledby="basics-question-8">
+            <div class="card-body">
+              So far, we do not have any evidence that ECC.fail has been used in the wild.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="basics-question-9">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#basics-answer-9"
+                aria-expanded="true" aria-controls="basics-answer-9">
+                When did you notify Intel?
+              </button>
+            </h6>
+          </div>
+          <div id="basics-answer-9" class="collapse" aria-labelledby="basics-question-9">
+            <div class="card-body">
+              We disclosed ECC.fail to Intel on Jan 24, 2025.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <h5 class="gray">Technical Questions</h5>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="techs-question-1">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#techs-answer-1"
+                aria-expanded="true" aria-controls="techs-answer-1">
+                Why are Rowhammer attacks on servers harder?
+              </button>
+            </h6>
+          </div>
+          <div id="techs-answer-1" class="collapse" aria-labelledby="techs-question-1">
+            <div class="card-body">
+              Compared to their PC counterparts, servers use ECC memory which offers error correction capabilities in
+              case
+              of bit flips. As such, it was believed that these
+              protections would suffice to prevent Rowhammer and the resulting security exploits. However, our work
+              has
+              shown that with careful hammering it is possible to bypass these protections,
+              allowing us to launch Rowhammer attacks against DDR4 servers with default configuration and without
+              inducing crashes.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="tech-question-2">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#tech-answer-2"
+                aria-expanded="true" aria-controls="tech-answer-2">
+                What is the difference between server memory and PC memory?
+              </button>
+            </h6>
+          </div>
+          <div id="tech-answer-2" class="collapse" aria-labelledby="tech-question-2">
+            <div class="card-body">
+              In order to store those extra checkbits for ECC functionality,
+              ECC memory modules have extra memory chips compared to memory modules in personal computers.<p>
+
+                Example picture of a server memory module:
+              <div class="row justify-content-center" style="padding-top:20px; padding-bottom: 20px;">
+                <image src="img/rdimm-labeled.jpg" controls muted style="max-width: 60%;"></image>
+              </div>
+
+              Example picture of a PC memory module:
+              <div class="row justify-content-center" style="padding-top:20px;">
+                <image src="img/udimm-labeled.jpg" controls muted style="max-width: 60%;"></image>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="tech-question-3">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#tech-answer-3"
+                aria-expanded="true" aria-controls="tech-answer-3">
+                What is an Error Correcting Code?
+              </button>
+            </h6>
+          </div>
+          <div id="tech-answer-3" class="collapse" aria-labelledby="tech-question-3">
+            <div class="card-body">
+              On servers, an Error Correcting Code, or ECC, is a functionality for improving reliability of server
+              memory
+              against random data corruptions. This is achieved by the CPU adding redundant bits, called checkbits, to
+              the
+              data
+              stored in memory. The checkbits are calculated by server processors when writing cache line data to
+              memory
+              and can be used to detect and correct data corruptions happened in the memory module or during
+              transmission.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="tech-question-4">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#tech-answer-4"
+                aria-expanded="true" aria-controls="tech-answer-4">
+                Why can't Error Correction Codes (ECC) protect servers from Rowhammer exploits?
+              </button>
+            </h6>
+          </div>
+          <div id="tech-answer-4" class="collapse" aria-labelledby="tech-question-4">
+            <div class="card-body">
+              Error correcting codes (ECC) are designed to address memory errors
+              caused by many factors ranging from cosmic rays to disturbance errors.
+              In the case of Rowhammer bit flips, ECC is able to correct single bit flips,
+              and detect two or more random bit flips.
+              However, as our work shows, even ECC has its limits. More specifically, carefully placed bit flips at
+              certain memory locations are able to bypass
+              the ECC, resulting in no ECC errors or ECC "miscorrections" of data. In both cases this results in
+              Rowhammer-induced bit flips, allowing us to mount exploits against the machine's security primitives.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="techs-question-5">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#techs-answer-5"
+                aria-expanded="true" aria-controls="techs-answer-5">
+                How did you recover Intel's ECC implementation?
+              </button>
+            </h6>
+          </div>
+          <div id="techs-answer-5" class="collapse" aria-labelledby="techs-question-5">
+            <div class="card-body">
+              Server CPUs calculate ECC checkbits using an encoding matrix.
+              Recovering the ECC implementation is essentially recovering the ECC encoding matrix.
+              To recover the matrix, we need to know the corresponding checkbits of given cache line data.
+              We use the logic analyzer to capture checkbits of cache line data written by our program to recover the
+              matrix.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="techs-question-6">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#techs-answer-6"
+                aria-expanded="true" aria-controls="techs-answer-6">
+                How did you bypass Target Row Refresh?
+              </button>
+            </h6>
+          </div>
+          <div id="techs-answer-6" class="collapse" aria-labelledby="techs-question-6">
+            <div class="card-body">
+              Because TRR is built inside DRAM chips, we use an FPGA (Field-Programmable Gate Array)
+              to control commands sent to memory so that we can analyze characteristics of Hynix TRR.
+              <br>
+              Below is a picture of our FPGA setup with ECC memory installed:
+              <div class="row justify-content-center" style="padding-top: 20px; padding-bottom: 20px;">
+                <image src="img/fpga-labeled.jpg" controls muted style="max-width: 90%;"></image>
+              </div>
+              We find that TRR on the Hynix DIMMs we tested detects possible Rowhammer attacks
+              by randomly sampling rows being accessed.
+              However, we discovered that the sampler built in the memory does not sample uniformly,
+              which enables us to craft Rowhammer patterns that can prevent our attack accesses from being sampled.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="techs-question-7">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#techs-answer-7"
+                aria-expanded="true" aria-controls="techs-answer-7">
+                Are my servers affected?
+              </button>
+            </h6>
+          </div>
+          <div id="techs-answer-7" class="collapse" aria-labelledby="techs-question-7">
+            <div class="card-body">
+              We currently tested a small number of Intel servers and SK Hynix memory modules. See our paper for
+              details. However, now that we have demonstrated that Rowhammer attacks on servers is possible, we expect
+              that others will improve our work to larger categories of server hardware.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="techs-question-8">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#techs-answer-8"
+                aria-expanded="true" aria-controls="techs-answer-8">
+                How can I detect if someone is Rowhammering on my servers?
+              </button>
+            </h6>
+          </div>
+          <div id="techs-answer-8" class="collapse" aria-labelledby="techs-question-8">
+            <div class="card-body">
+              If error reporting is properly configured on your server and a Rowhammer attack is taking place, we
+              expect to see a large number of
+              correctable and (un)correctable memory errors. While this might indicate potential memory failure, it
+              can also be used as a crude method for detecting Rowhammer.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="techs-question-9">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#techs-answer-9"
+                aria-expanded="true" aria-controls="techs-answer-9">
+                I am a cloud service provider, how can I defend against ECC.fail?
+              </button>
+            </h6>
+          </div>
+          <div id="techs-answer-9" class="collapse" aria-labelledby="techs-question-9">
+            <div class="card-body">
+              Contact your hardware vendors for CPU and memory and inquire about their Rowhammer protections. While
+              completely mitigating Rowhammer is an open research problem, some memory modules are weaker than others
+              making hammering them easier.
+              In addition, we recommand configuring your system to properly report and log memory errors. Having a
+              large amount of such errors in your infrastructure could indicate memory failure, as well as the
+              possibility of Rowhammer attacks.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <h5 class="gray">Miscellaneous</h5>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="misc-question-1">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#misc-answer-1"
+                aria-expanded="true" aria-controls="misc-answer-1">
+                Can I use the logos?
+              </button>
+            </h6>
+          </div>
+          <div id="misc-answer-1" class="collapse" aria-labelledby="misc-question-1">
+            <div class="card-body">
+              <p>
+                Yes, with rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.
+                You can right-click each logo, which should list an option to save the image as a file.
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="misc-question-2">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#misc-answer-2"
+                aria-expanded="true" aria-controls="misc-answer-2">
+                Can I use the pictures?
+              </button>
+            </h6>
+          </div>
+          <div id="misc-answer-2" class="collapse" aria-labelledby="misc-question-2">
+            <div class="card-body">
+              <p>
+                Yes, with rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.
+                <br>
+                Here are the pictures without text labels:
+              <div class="row justify-content-center">
+                <image src="img/la.jpg" controls muted style="max-width: 60%;"></image>
+              </div>
+              <div class="row justify-content-center">
+                <image src="img/udimm.jpg" controls muted style="max-width: 60%;"></image>
+              </div>
+              <div class="row justify-content-center">
+                <image src="img/server-mobo-with-cpu-dimm-slot.jpg" controls muted style="max-width: 50%;"></image>
+              </div>
+              <div class="row justify-content-center">
+                <image src="img/fpga.jpg" controls muted style="max-width: 60%;"></image>
+              </div>
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="misc-question-3">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#misc-answer-3"
+                aria-expanded="true" aria-controls="misc-answer-3">
+                Where can I find more information?
+              </button>
+            </h6>
+          </div>
+          <div id="misc-answer-3" class="collapse" aria-labelledby="misc-question-3">
+            <div class="card-body">
+              <p>The 'Read the Paper' button at the top of this website links to the academic paper
+                for ECC.fail. ECC.fail will appear at the
+                <a href="https://www.usenix.org/conference/usenixsecurity25">2025 USENIX Security Symposium</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="misc-question-4">
+            <h6>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#misc-answer-4"
+                aria-expanded="true" aria-controls="misc-answer-4">
+                Where can I find artifacts for this paper?
+              </button>
+            </h6>
+          </div>
+          <div id="misc-answer-4" class="collapse" aria-labelledby="misc-question-4">
+            <div class="card-body">
+              <p>
+                We publish the artifacts supporting our work, listed as follows:
+              <ul>
+                <li>Source code, instructions, scripts, and/or files for TRR
+                  profiling and testing Rowhammer patterns using an FPGA
+                  memory controller, testing Rowhammer on a test platform
+                  and the tool that parses and modifies a UEFI image file.</li>
+                <li>Source code and instructions for testing Intel's ECC
+                  implementation, data correction capabilities, and data
+                  scrambling, and the ECC generator matrix and parity
+                  check matrix for Intel's Skylake and Cascade Lake
+                  platforms</li>
+                <li>Source code, instructions, and testing scripts for DDR4
+                  Rowhammer with ECC and data scrambling enabled and
+                  for RSA</li>
+              </ul>
+              You can find artifacts for ECC.fail at
+              <a href="https://doi.org/10.5281/zenodo.15579424">https://doi.org/10.5281/zenodo.15579424</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <section id="acknowledgments">
+      <h4>Acknowledgments</h4>
+      <div class="block">
+        <p>
+          This research was supported by the Alfred P Sloan Research Fellowship;
+          an ARC Discovery Project number DP210102670;
+          the Defense Advanced Research Projects Agency (DARPA) under contract numbers W912CG-23-C-0022;
+          the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany's Excellence Strategy -
+          EXC 2092 CASA - 390781972;
+          and a gift from Qualcomm.
+          <br><br>
+          The views and conclusions contained in this document are those of the authors and should not
+          be interpreted as representing the official policies, either expressed or implied, of the
+          U.S. Government.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="text-center w-100">
+      <span>Copyright &copy; 2025 Georgia Institute of Technology. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Cite breaks without older Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
 
 </body>
 
